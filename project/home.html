@@ -1,0 +1,947 @@
+<!doctype html>
+
+<html>
+	<head>
+
+
+
+
+
+	<style>
+	</style>
+	<title>Cake Baby</title>
+	<!-- Bootstrap core CSS -->
+    <!-- <link href="./css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <link rel="stylesheet" href="css/bootstrap.css" >
+
+    <style type="text/css">
+      body {
+        padding-top: 20px;
+        padding-bottom: 40px;
+      }
+
+      /* Custom container */
+      .container-narrow {
+        margin: 0 auto;
+        max-width: 700px;
+      }
+      .container-narrow > hr {
+        margin: 30px 0;
+      }
+
+      /* Main marketing messages */
+      .jumbotron {
+        margin: 60px 0;
+        text-align: center;
+		background: url(img/sue.jpg);
+		color: white;
+      }
+
+      .jumbotron h1 {
+        font-size: 72px;
+        line-height: 1;
+      }
+
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+      /* Supporting marketing content */
+      .marketing {
+        margin: 60px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
+      }
+
+    </style>
+
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+
+    <script src="./common/ajaxCheat.js"></script>
+
+	</head>
+
+
+
+	<body>	
+
+
+	<!-- añado -->
+	 <div class="container-narrow">
+
+      <div class="masthead">
+
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="home.html">Home</a></li>
+          <li><a href="ingredients.html">Ingredients</a></li>
+          
+        </ul>
+
+        <h3 class="muted">Cake baby! Lets cook!</h3>
+      </div>
+
+
+
+  </div>
+
+<div class="container-narrow">
+
+    <hr>
+
+		<div id="welcomeMessage" class="row-fluid"> 
+			<img id="myImage" class="" src=  "img/cubiertos2.png"  />
+			<h2>Welcome to Cake Baby!</h2>
+			<p>Learn our recipes and you will become a master chef!</p>
+			
+		</div>
+
+	</hr>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+		<div id="cakeHook"  class="container-narrow">
+
+
+		
+
+		<!--<h2>List of all ingredients: </h2>-->
+
+		<!--<div id="stringProduct"></div>-->
+
+
+		<h2>Choose a recipe: </h2>
+
+		
+
+		
+
+
+ 		 <div id="recipeName"> </div>
+
+
+ 		 <button  class="btn btn-large btn-success" id="boton" value="calc">Calculate budget</button>
+
+
+
+
+
+
+		
+
+		<div id="myResults"></div>
+
+		
+
+		<div id="costPerSupplier"></div>
+
+
+			
+
+		<div id="amountPerSupplier"></div>
+		
+
+
+
+
+		
+
+
+
+
+
+
+
+			 <hr>
+
+		<div id="footer" class="footer">
+			<p>
+				<span>Copyright 2015</span>
+			</p>
+		</div>
+
+	</hr>
+
+	</div>
+
+		<script>
+		
+
+
+(function(cookApp) {
+
+
+
+
+
+
+
+	//Product object constructor
+
+			cookApp.Product  = function(proName,proIngredient,proMeasurement,proCost,proSpplier) {
+				this.name= proName;
+				this.measurement = proMeasurement;
+				this.cost = proCost;
+				this.supplier = proSpplier;
+
+
+				this.printProduct = function(){
+
+			var resultDiv = document.getElementById("stringProduct");
+
+			var messageDiv = document.createElement("div");
+			messageDiv.innerHTML = "<li><ul>" +this.name+ "</ul></li>";
+			resultDiv.appendChild(messageDiv);
+
+
+			};
+
+
+
+
+		
+			};
+
+
+
+		//ingredient object constructor
+
+		cookApp.Recipe = function (recName, recIngredients){
+			this.name = recName;
+			this.ingredient = recIngredients;
+
+
+
+
+			this.displayrecipeName= function(){
+
+			var resultDiv = document.getElementById("recipeName");
+
+			var messageDiv = document.createElement("div");
+
+			var input = this.name;
+
+			
+			messageDiv.innerHTML = "<b>Recipe Name:</b> <p><font color='#819FF7'>"+ this.name + "</font> </p> <form id='myForm' > Number: <input id='"+ this.name +"' type='int' name='numberRecipes'> </form>";
+
+	
+			resultDiv.appendChild(messageDiv);
+
+	
+			};
+
+
+
+
+		}
+
+
+
+
+			//Cost result object constructor
+
+			cookApp.CostResult  = function(mycostCake,mycostCookie,mytotal) {
+
+				this.costCake= mycostCake;
+				this.costCookie = mycostCookie;
+				this.total = mytotal;
+				
+				this.printCostResult = function(){
+
+					var resultDiv = document.getElementById("myResults");
+					var messageDiv = document.createElement("div");
+
+				
+					messageDiv.innerHTML = "<h2>Cost</h2><li><ul>Cost  of chocolate cake recipes: " +this.costCake+ " $</ul></li>"+"<li><ul>Cost of cookies recipes: " +this.costCookie+ " $ </ul></li>"+"<li><ul>Total cost: " +this.total+ " $</ul></li>";
+					resultDiv.appendChild(messageDiv);
+
+
+				};
+
+			};
+
+
+
+			//Cost result per supplier object constructor
+
+			cookApp.CostResultSupplier  = function(supplier1,supplier2) {
+
+				this.costSupplier1= supplier1;
+				this.costSupplier2 = supplier2;
+				
+				
+				this.printCostResultSupplier = function(){
+
+					var resultDiv = document.getElementById("costPerSupplier");
+
+					var messageDiv = document.createElement("div");
+
+					messageDiv.innerHTML = "<h2>Cost Per supplier</h2> <li><ul>Cost of Wholesale Baking: " +this.costSupplier1+ " $</ul></li>"+"<li><ul>Cost of Pete's Farm Fresh Ingredients: " +this.costSupplier2+ " $</ul></li>";
+					resultDiv.appendChild(messageDiv);
+
+
+				};
+
+			};
+
+
+			//Amount result object constructor
+
+			cookApp.AmountResultSupplier  = function(supplier1,supplier2) {
+
+				this.amountSupplier1= supplier1;
+				this.amountSupplier2 = supplier2;
+				
+				
+				this.printAmountResultSupplier = function(){
+
+					var resultDiv = document.getElementById("amountPerSupplier");
+
+					var messageDiv = document.createElement("div");
+
+				
+					messageDiv.innerHTML = "<h2>Amount Per supplier</h2><li><ul><b>Amount of Wholesale Baking:</b> <br>" +this.amountSupplier1+ " </ul></li>"+"<li><ul><b>Amount of Pete's Farm Fresh Ingredients: </b><br> " +this.amountSupplier2+ " </ul></li>";
+					resultDiv.appendChild(messageDiv);
+
+
+				};
+
+			};
+
+
+
+
+
+
+	
+
+
+
+
+		})(window.cookApp = window.cookApp || {});  
+
+		
+
+
+
+
+	
+
+
+	var displayRecipeNames= function( text ) {
+
+		var a1data = JSON.parse(text)[0];
+
+			for(var i = 0; i < a1data.recipes.length ; i++)
+			{   
+	    		
+		    	var aRecipe = new cookApp.Recipe(a1data.recipes[i].name, "");
+		    	aRecipe.displayrecipeName();
+	    		
+	    	}
+		
+    		
+
+	};
+
+	
+
+
+	
+	ajax.get("a1data.json", displayRecipeNames);
+
+	
+
+
+
+
+
+
+
+
+	var displayProducts= function( text ) {
+
+		var a1data = JSON.parse(text)[0];
+
+
+
+		
+		for(var msg = 0; msg < a1data.products.length ; msg++)
+		{
+		
+
+		    var aProduct = new cookApp.Product(a1data.products[msg].name, a1data.products[msg].cost , a1data.products[msg].per ,a1data.products[msg].supplier);
+
+			aProduct.printProduct();
+		}
+
+	
+		
+
+	};
+
+
+	
+	//ajax.get("a1data.json", displayProducts);
+
+
+	
+
+
+
+
+
+	document.getElementById("boton").onclick = function() {
+		ajax.get("a1data.json", calculation);
+	};
+
+
+
+
+	
+    // Function to calculate the cost of the chocolate cake recipe
+
+		var calcCostRecipe1= function(a1data) {
+		
+	
+			var number1 = document.getElementById("Chocolate cake");
+			var inputNumber1 = parseInt(number1.value);
+
+			
+
+			var coste = 0;
+
+
+			if (inputNumber1 > 0){
+
+
+				for(var key in a1data.recipes[0].ingredients[0]) {
+
+				 
+				    var val = key;
+
+			    	for(var msg = 0; msg < a1data.products.length ; msg++){
+			
+
+						if (a1data.products[msg].name == val){
+
+
+							coste = coste + inputNumber1 * a1data.products[msg].cost * (parseFloat(a1data.recipes[0].ingredients[0][key]));
+
+						}
+			
+					}
+		    			    	
+		   		} 
+					 
+			}
+
+
+			return coste;
+
+		};
+
+	
+
+ 		// Function to calculate the cost of the cookies recipe
+
+		var calcCostRecipe2= function(a1data) {
+
+
+			var number2 = document.getElementById("Cookies");
+			var inputNumber2 = parseInt(number2.value);
+
+		
+
+			var coste = 0;
+
+
+			if (inputNumber2 > 0){
+
+
+				for(var key in a1data.recipes[1].ingredients[0]) {
+
+				    var val = key;
+
+				   	for(var msg = 0; msg < a1data.products.length ; msg++){
+				
+
+							if (a1data.products[msg].name == val){
+
+
+								coste = coste + inputNumber2 * a1data.products[msg].cost * (parseFloat(a1data.recipes[1].ingredients[0][key]));
+
+													
+
+							}
+				
+					}
+
+			   
+		    			    	
+		   		} 
+					 
+			}
+
+			return coste;
+
+		};
+
+		
+
+
+		// Function to calculate the cost of supplier 1
+
+		var calcCostSupplier1= function(a1data) {
+		
+	
+			var number1 = document.getElementById("Chocolate cake");
+			var inputNumber1 = parseInt(number1.value);
+
+			var number2 = document.getElementById("Cookies");
+			var inputNumber2 = parseInt(number2.value);
+
+		
+
+			var supplier1 = "Wholesale Baking";
+			var supplier2 = "Pete's Farm Fresh Ingredients";
+
+			var costSupplier1 = 0;
+			var costSupplier1A = 0;
+
+
+			if (inputNumber1 > 0){
+
+
+				for(var key in a1data.recipes[0].ingredients[0]) {
+
+			 
+			    	var val = key;
+
+			    	for(var msg = 0; msg < a1data.products.length ; msg++){
+			
+
+						if (a1data.products[msg].name == val){
+
+							if (a1data.products[msg].supplier == supplier1) {
+
+								costSupplier1 = costSupplier1 + inputNumber1 * parseFloat(a1data.products[msg].cost)*(parseFloat(a1data.recipes[0].ingredients[0][key]));
+
+							}
+									
+						}
+			
+					}
+		    			    	
+		   		} 
+					 
+			}
+
+			if (inputNumber2 > 0){
+
+
+				for(var key in a1data.recipes[1].ingredients[0]) {
+
+			 
+			    	var val = key;
+
+			    	for(var msg = 0; msg < a1data.products.length ; msg++){
+
+						if (a1data.products[msg].name == val){
+
+							if (a1data.products[msg].supplier == supplier1) {
+
+								costSupplier1A = costSupplier1A + inputNumber2 *  parseFloat(a1data.products[msg].cost)*(parseFloat(a1data.recipes[1].ingredients[0][key]));
+
+							}
+
+						}
+			
+					}
+		    			    	
+		   		 } 
+					 
+			}
+
+			var totalSuppliers1 = costSupplier1 + costSupplier1A;
+
+
+
+			 return totalSuppliers1;
+
+		};
+
+
+
+
+
+
+
+			var calcCostSupplier2= function(a1data) {
+		
+	
+	
+
+				var number1 = document.getElementById("Chocolate cake");
+				var inputNumber1 = parseInt(number1.value);
+
+				var number2 = document.getElementById("Cookies");
+				var inputNumber2 = parseInt(number2.value);
+
+
+
+				var supplier1 = "Wholesale Baking";
+				var supplier2 = "Pete's Farm Fresh Ingredients";
+
+				//var costSupplier1 = 0;
+				var costSupplier2 = 0;
+
+				//var costSupplier1A = 0;
+				var costSupplier2A = 0;
+
+
+				if (inputNumber1 > 0){
+
+
+					for(var key in a1data.recipes[0].ingredients[0]) {
+
+				 
+				    	var val = key;
+
+
+				    	for(var msg = 0; msg < a1data.products.length ; msg++){
+				
+
+							if (a1data.products[msg].name == val){
+
+								if (a1data.products[msg].supplier == supplier2) {
+
+									costSupplier2 = costSupplier2 + inputNumber1 * parseFloat(a1data.products[msg].cost)*(parseFloat(a1data.recipes[0].ingredients[0][key]));
+
+								}
+
+
+							}
+			
+						}
+	    			    	
+		   		 	} 
+				 
+				}
+
+				if (inputNumber2 > 0){
+
+
+					for(var key in a1data.recipes[1].ingredients[0]) {
+
+		 
+		   				var val = key;
+		 
+				    	for(var msg = 0; msg < a1data.products.length ; msg++){
+				
+
+							if (a1data.products[msg].name == val){
+
+								if (a1data.products[msg].supplier == supplier2) {
+
+									costSupplier2A = costSupplier2A + inputNumber2 * parseFloat(a1data.products[msg].cost)*(parseFloat(a1data.recipes[1].ingredients[0][key]));
+
+								}									
+
+
+							}
+				
+						}
+
+			    			    	
+			   		 } 
+				 
+				}
+
+				var totalSuppliers2 = costSupplier2 + costSupplier2A;
+
+
+				 return totalSuppliers2;
+
+			};
+
+
+
+
+
+		var calcAmountSupplier1= function(a1data) {
+		
+	
+			var number1 = document.getElementById("Chocolate cake");
+			var inputNumber1 = parseInt(number1.value);
+
+			var number2 = document.getElementById("Cookies");
+			var inputNumber2 = parseInt(number2.value);
+
+	
+			var supplier1 = "Wholesale Baking";
+
+			var stringSupplier1 = "";
+			var stringSupplier1A = "";
+
+			var amount1= 0;
+			var amount2= 0;
+
+		
+          
+	
+			for(var key in a1data.recipes[0].ingredients[0]) {
+
+		 
+		   		 var val = key;
+
+		    	for(var msg = 0; msg < a1data.products.length ; msg++){
+		
+					if (a1data.products[msg].name == val){
+
+						if (a1data.products[msg].supplier == supplier1) {
+
+							amount1=inputNumber1 * (parseFloat(a1data.recipes[0].ingredients[0][key]));
+
+							//stringSupplier1 = stringSupplier1 + "  <br> <b>Ingredient:</b> " + val +  "      "  + "<b>Amount: </b>" + inputNumber1 * (parseFloat(a1data.recipes[0].ingredients[0][key])) +" per "+ a1data.products[msg].per;
+
+							  if (inputNumber1>0){
+
+							stringSupplier1 = stringSupplier1 + "  <br> <b>Ingredient:</b> " + val +  "      "  + "<b>Amount: </b>" + amount1 +" per "+ a1data.products[msg].per;
+
+						     }
+						     else{
+
+						     stringSupplier1 = stringSupplier1 + "  <br> <b>Ingredient:</b> " + val +  "      "  + "<b>Amount: </b>" + "0" ;
+
+						     }
+
+						}		
+
+					}
+		
+				}
+
+	   		}
+
+	   		
+
+
+	   		
+
+
+	   		for(var key in a1data.recipes[1].ingredients[0]) {
+
+		 
+		       var val = key;
+
+
+		    	for(var msg = 0; msg < a1data.products.length ; msg++){
+		
+
+					if (a1data.products[msg].name == val){
+
+						if (a1data.products[msg].supplier == supplier1) {
+
+							amount2 = inputNumber2 * (parseFloat(a1data.recipes[1].ingredients[0][key]));
+
+							if(inputNumber2>0){
+
+							stringSupplier1A = stringSupplier1A + " <br> <b>Ingredient:</b> " + val + "  <b>Amount:</b> " + amount2 +" per "+ a1data.products[msg].per ;
+
+							}
+							else{
+
+							stringSupplier1A = stringSupplier1A + " <br> <b>Ingredient:</b> " + val + "  <b>Amount:</b> " + "0"  ;
+
+
+
+							}
+
+							
+
+						}		
+
+
+					}
+		
+				}
+
+	    			    	
+	   		}
+
+	   		
+				 	
+
+			 var totalSuppliers = "<br> <b><font color='#819FF7' >Chocolate cake:</font> </b><p>" +stringSupplier1 +"</p><br> <b><font color='#819FF7' >Cookies: </font></b><p> "+ stringSupplier1A+ "</p> <br>";
+			
+
+
+			 return totalSuppliers;
+
+		};
+
+
+
+
+	var calcAmountSupplier2= function(a1data) {
+		
+	
+	
+
+			var number1 = document.getElementById("Chocolate cake");
+			var inputNumber1 = parseInt(number1.value);
+
+			var number2 = document.getElementById("Cookies");
+			var inputNumber2 = parseInt(number2.value);
+
+			
+			var supplier2 = "Pete's Farm Fresh Ingredients";
+
+			
+			var stringSupplier2 = "";
+			var stringSupplier2A= "";
+
+	
+
+			for(var key in a1data.recipes[0].ingredients[0]) {
+
+		 
+		   		 var val = key;
+
+		    	for(var msg = 0; msg < a1data.products.length ; msg++){
+		
+
+					if (a1data.products[msg].name == val){
+
+						if (a1data.products[msg].supplier == supplier2) {
+
+							if(inputNumber1>0){
+
+							stringSupplier2 = stringSupplier2 + "  <br> <b>Ingredient:</b> "+ val +"            "+ "  <b> Amount: </b>" + inputNumber1 *(parseFloat(a1data.recipes[0].ingredients[0][key])) +" per "+ a1data.products[msg].per;
+						  }
+
+						  else{
+
+						  	stringSupplier2 = stringSupplier2 + "  <br> <b>Ingredient:</b> "+ val +"            "+ "  <b> Amount: </b>" + "0" ;
+
+
+						  }
+
+						}		
+
+
+					}
+		
+				}
+	
+	    			    	
+	   		 } 
+
+
+	   		 for(var key in a1data.recipes[1].ingredients[0]) {
+
+		 
+		        var val = key;
+
+		    	for(var msg = 0; msg < a1data.products.length ; msg++){
+		
+					if (a1data.products[msg].name == val){
+
+						if (a1data.products[msg].supplier == supplier2) {
+
+							if (inputNumber2>0){
+
+							stringSupplier2A = stringSupplier2A + " <br> <b> Ingredient: </b>" + val + "           "+"    <b> Amount: </b>" + inputNumber2 *(parseFloat(a1data.recipes[1].ingredients[0][key])) +" per "+ a1data.products[msg].per;
+							}
+							else {
+
+
+							stringSupplier2A = stringSupplier2A + " <br> <b> Ingredient: </b>" + val + "           "+"    <b> Amount: </b>" + "0" ;
+
+
+							}
+
+						}		
+
+					}
+		
+				}
+	    			    	
+	   		 } 
+				 	
+
+			var totalSuppliers = "<br><b><font color='#819FF7' >Chocolate cake: </font></b><p>" +stringSupplier2 +"</p><br><b><font color='#5882FA' > Cookies: </font></b><p> "+ stringSupplier2A+ "</p> <br>";
+			
+			 return totalSuppliers;
+
+		};
+
+
+
+	
+	
+
+		var calculation = function(text){
+
+			var a1data = JSON.parse(text)[0];
+
+
+			var ingRec1 = calcCostRecipe1(a1data);
+			var ingRec2 = calcCostRecipe2(a1data);
+
+			var sup1 = calcCostSupplier1(a1data);
+			var sup2 = calcCostSupplier2(a1data);
+
+			var amSup1 = calcAmountSupplier1(a1data);
+			var amSup2 = calcAmountSupplier2(a1data);
+
+
+
+
+			var resultDiv = document.getElementById("myNumber");
+			var messageDiv = document.createElement("div");
+			
+
+			var total = ingRec1 +  ingRec2;
+
+
+			var aResult = new cookApp.CostResult(ingRec1, ingRec2, total);
+			aResult.printCostResult();
+
+			var aCostSupplier = new cookApp.CostResultSupplier(sup1, sup2);
+			aCostSupplier.printCostResultSupplier();
+
+			var anAmountSupplier = new cookApp.AmountResultSupplier(amSup1, amSup2);
+			anAmountSupplier.printAmountResultSupplier();
+  
+
+
+		}
+
+		
+
+	
+
+
+		
+	
+
+
+		</script>	
+
+	</body>
+</html>

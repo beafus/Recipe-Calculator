@@ -1,0 +1,82 @@
+[
+    {
+        "products": [
+            {
+                "name": "Flour",
+                "cost": 1.00,
+                "per": "cup",
+                "supplier": "Wholesale Baking"
+            },
+            {
+                "name": "Sugar",
+                "cost": 0.50,
+                "per": "cup",
+                "supplier": "Wholesale Baking"
+            },
+            {
+                "name": "Eggs",
+                "cost": 0.20,
+                "per": "unit",
+                "supplier": "Pete's Farm Fresh Ingredients"
+            },
+            {
+                "name": "Baking Powder",
+                "cost": 1.00,
+                "per": "tsp",
+                "supplier": "Wholesale Baking"
+            },
+            {
+                "name": "Baking Soda",
+                "cost": 1.00,
+                "per": "tsp",
+                "supplier": "Wholesale Baking"
+            },
+            {
+                "name": "Chocolate Powder",
+                "cost": 2.00,
+                "per": "cup",
+                "supplier": "Wholesale Baking"
+            },
+            {
+                "name": "Chocolate Chips",
+                "cost": 2.50,
+                "per": "cup",
+                "supplier": "Wholesale Baking"
+            },
+            {
+                "name": "Butter",
+                "cost": 4.00,
+                "per": "cup",
+                "supplier": "Pete's Farm Fresh Ingredients"
+            }   
+        ],
+        "recipes": [
+                {
+                    "name": "Chocolate cake",
+                    "ingredients": [
+                        {
+                            "Flour": 1.75,
+                            "Sugar": 2.00,
+                            "Eggs": 2.00,
+                            "Baking Powder": 1.5,
+                            "Baking Soda": 1.75,
+                            "Chocolate Powder": 0.75
+                        }
+                    ]
+                },
+                {
+                    "name": "Cookies",
+                    "ingredients": [
+                        {
+                            "Butter": 0.5,
+                            "Flour": 1.5,
+                            "Sugar": 3.00,
+                            "Eggs": 1.00,
+                            "Baking Powder": 0.5,
+                            "Chocolate Chips": 1.00
+                        }
+                    ]
+                }
+            ]
+        }
+]
